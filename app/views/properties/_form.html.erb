@@ -18,12 +18,12 @@
 
   <div class="field">
     <%= form.label :rent %>
-    <%= form.text_area :rent %>
+    <%= form.text_area :rent %>RWF
   </div>
 
   <div class="field">
     <%= form.label :building_age %>
-    <%= form.text_area :building_age %>
+    <%= form.text_area :building_age %>year/years old
   </div>
 
   <div class="field">
@@ -39,4 +39,33 @@
   <div class="actions">
     <%= form.submit %>
   </div>
+
+  <br>
+  <hr>
+
+  <% i = 1 %>
+  <%= form.fields_for :nearest_stations do |nearest_station| %>
+    <% if @property.nearest_stations.any? %>
+      <br>
+      <br>
+      <h2>Name of railway line<%= i %></h2>
+      <% i += 1 %>
+      <div class="railway_line">
+        <%= nearest_station.label :railway_line %><br>
+        <%= nearest_station.text_field :railway_line %>
+      </div>
+    
+      <div class="station_name">
+        <%= nearest_station.label :station_name %><br>
+        <%= nearest_station.text_field :station_name %>
+      </div>
+    
+      <div class="minutes_walk">
+        <%= nearest_station.label :minutes_walk %><br>
+        <%= nearest_station.text_field :minutes_walk %>min/mins<br>
+      </div>
+    
+      <%= form.submit 'create property' %>
+    <% end %>
+  <% end %>
 <% end %>
