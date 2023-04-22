@@ -1,0 +1,71 @@
+<%= form_with(model: property, local: true) do |form| %>
+  <% if property.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(property.errors.count, "error") %> prohibited this property from being saved:</h2>
+
+      <ul>
+        <% property.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :property %>
+    <%= form.text_area :property %>
+  </div>
+
+  <div class="field">
+    <%= form.label :rent %>
+    <%= form.text_area :rent %>RWF
+  </div>
+
+  <div class="field">
+    <%= form.label :building_age %>
+    <%= form.text_area :building_age %>year/years old
+  </div>
+
+  <div class="field">
+    <%= form.label :address %>
+    <%= form.text_area :address %>
+  </div>
+
+  <div class="field">
+    <%= form.label :remark %>
+    <%= form.text_area :remark %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+
+  <br>
+  <hr>
+
+  <% i = 1 %>
+  <%= form.fields_for :nearest_stations do |nearest_station| %>
+    <% if @property.nearest_stations.any? %>
+      <br>
+      <br>
+      <h2>Name of railway line<%= i %></h2>
+      <% i += 1 %>
+      <div class="railway_line">
+        <%= nearest_station.label :railway_line %><br>
+        <%= nearest_station.text_field :railway_line %>
+      </div>
+    
+      <div class="station_name">
+        <%= nearest_station.label :station_name %><br>
+        <%= nearest_station.text_field :station_name %>
+      </div>
+    
+      <div class="minutes_walk">
+        <%= nearest_station.label :minutes_walk %><br>
+        <%= nearest_station.text_field :minutes_walk %>min/mins<br>
+      </div>
+    
+      <%= form.submit 'create property' %>
+    <% end %>
+  <% end %>
+<% end %>
